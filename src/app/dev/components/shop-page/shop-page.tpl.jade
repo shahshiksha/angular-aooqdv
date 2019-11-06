@@ -1,0 +1,49 @@
+.pages.shop-page
+  .index-content.clearfix
+    section.content-title
+      h1 Shop
+      ul.breadcrumbs
+        li
+          a(ui-sref='main') Main
+        li
+          a(ui-sref='shop') Shop
+        li.current Means for care
+    section.inner-content
+      .content-left.filter-container
+        form(name='filters')
+          fieldset.manufacturers
+            legend Manufacturers:
+            ul
+              li(data-ng-repeat='manufacturer in spc.manufacturers')
+                input(type='checkbox'
+                      name='manufacturer'
+                      data-ng-checked='manufacturer.checked'
+                      id='manufacturer-{{ manufacturer.id }}')
+                label(for='manufacturer-{{ manufacturer.id }}') {{ manufacturer.name }}
+          fieldset.goods-groups
+            legend Goods groups:
+            ul
+              li(data-ng-repeat='group in spc.goodsGroups')
+                input(type='radio' name='goodsGroup' data-ng-checked='group.checked' id='group-{{ group.id }}')
+                label(for='group-{{ group.id }}') {{ group.name }}
+          button(type='submit').btn Show
+      .content-right.goods
+        | {{ spc.filters }}
+        .goods-container.clearfix
+          .goods-item(data-ng-repeat='item in spc.goods')
+            a(ui-sref='shop-item({ category: item.category, itemId: item.id })')
+              img(data-ng-src='{{item.image}}')
+            h2
+              a(ui-sref='shop-item({ category: item.category, itemId: item.id })')
+                | {{ item.manufacturer }}
+                span
+                  | {{ item.name }}
+            .purchase-block
+              span.price {{ item.price | currency }}
+              button.btn Buy
+        .goods-pagination
+          button.btn 1
+          button.btn.pagination-current 2
+          button.btn 3
+          button.btn 4
+

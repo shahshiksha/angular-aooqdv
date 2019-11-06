@@ -1,0 +1,76 @@
+[ui-view].ng-enter,
+[ui-view].ng-leave,
+[ng-include].ng-enter,
+[ng-include].ng-leave,
+ng-include.ng-enter,
+ng-include.ng-leave
+  -webkit-transition all .9s ease-in-out
+  -moz-transition all .9s ease-in-out
+  -o-transition all .9s ease-in-out
+  transition all .9s ease-in-out
+
+.ui-view-container
+  position: relative
+
+@keyframes turn
+  0%
+    opacity 0
+    transform-origin: 50% 0
+    transform: perspective(1500px) rotateY(180deg)
+  50%
+    opacity: .5
+  100%
+    opacity: 1
+    transform-origin: 50% 0
+    transform: perspective(1500px) rotateY(0deg)
+
+@keyframes turnReturn
+  0%
+    opacity: 1
+    transform-origin: 50% 0
+    transform: perspective(1500px) rotateY(0deg)
+  50%
+    opacity .5
+  100%
+    opacity: 0
+    transform-origin: 50% 0
+    transform: perspective(1500px) rotateY(-180deg)
+
+@keyframes moveToLeft
+  from
+    transform: translateX(0%)
+  30%
+    transform: translateX(10%)
+  to
+    opacity 0
+    transform: translateX(-100%)
+
+@keyframes moveFromRight
+  from
+    transform: translateX(100%)
+  70%
+    transform: translateX(-10%)
+  to
+    opacity 1
+    transform: translateX(0%)
+
+@keyframes minHeight
+  from
+    min-height 1160px
+  to
+    min-height 0
+
+[ui-view].ng-enter
+  opacity: 0
+[ui-view].ng-enter-active
+  opacity: 0
+  animation: minHeight 1s ease-in-out both, moveFromRight .7s ease-in-out both
+  animation-delay .4s
+
+
+[ui-view].ng-leave-active,
+[ui-view].ng-leave
+  position: absolute
+  top 0
+  animation: moveToLeft .6s ease-in-out both
+  opacity 1
